@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  version: 1.0.0
+paths:
+  /flights:
+    get:
+      descrption: Get flight information
+      operationId: getflights
+      parameters:
+        - in: query
+          name: origin
+          schema:
+            type: string
+        - in: query
+          name: destination
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of flights
+  /order_pizza:
+    post:
+      description: Order a pizza
+      operationId: orderpizza
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                toppings:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: Order created

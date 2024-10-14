@@ -1,0 +1,9 @@
+Book a flight from New York to London
+Order a pepperoni pizza
+Check the weather in San Francisco
+Find all the pets
+Delete pet 1234
+Delete the pet called Felix
+Find the ID of the pet called Felix then delete it
+Delete the pet ID 1234 then recreate it
+Delete all cats

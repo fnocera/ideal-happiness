@@ -1,0 +1,34 @@
+We want to generate a simple flask application for Function Calling Test Factory. 
+
+The application is a test data creation tool. Given an OpenAPI API spec and a list of user intents, the application generates test data
+showing the API calls for each intent (there may be multiple function calls per intent). This can be later used to test the outputs of AI function calling. 
+
+It should have the following components:
+1. Python class to handle core functionality called TestFactory
+- There is a file containing an OpenAPI API spec
+- There is a text file of containing user intents which are new line separated
+- `generate_for_intent`
+    - The class has a function called generate_for_intent which accepts a single user intent and hits the Azure OpenAI API function calling endpoint to get the function call(s).
+      If there are any parameters passed from one function call to the next mark these like "<xxxx>".
+    - THEN it should make a SECOND request to Azure Open AI, given those function calls to return a list of the relevant portion of the OpenAPI spec document, for validation.
+      The code should validate that each of these portions of the spec document from the OpenAI call are exactly contained within the API spec doc.
+    - The function should return a tuple with the list of function calls (as List[Dict]) and the portions of spec relevant (List[string]). 
+- It should have another function (`persist_output`) that is given the user intent and a corrected list of function calls which it then saves in output.json (which is a key 
+value of each intent to the list of function calls) at the correct key. 
+2. Simple React front-end application, with 2 views:
+- (1) A list of all user intents (from which you can upload user intents file, or click on one of the user intents)
+- (2) When you click one of the user intents, it hits Flask API to run generate_for_intent, then
+      it displays the list of function calls on the left, and the list of portions of the API spec on the right.
+      The list of function calls are shown as EDITABLE JSON. The user can edit it. Then there is a "save" button at the bottom which,
+      when clicked, hits Flash API again to call persist_output to save the updated function call. for that specific intent.
+- Use material design for React!
+3. Basic Flask application with three endpoints:
+- list intents, from the intents text file
+- generate_for_intent
+- persist_output
+4. Docker compose with a Flask backend and React Frontent (and appropriate docker files)
+
+Show me the requirements.txt as well as any other files I need and the file/directory structure for the entire application. 
+
+
+
